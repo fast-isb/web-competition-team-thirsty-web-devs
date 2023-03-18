@@ -1,16 +1,16 @@
 const mongoose = require('mongoose')
 
 const interviewSchema = mongoose.Schema({
-    sid:{
+    email:{
         type:String,
         required:true,
     },
-    oid:{
+    oemail:{
         type:String,
         required:true,
     },
     opid:{
-        type:email,
+        type:String,
         required:true,
         unique:true,
     },
@@ -25,7 +25,9 @@ const interviewSchema = mongoose.Schema({
     description:{
         type:String,
     },
-
+    scheduledTime:{
+        type:Date,
+    }
 },
 
 {timestamps:true}

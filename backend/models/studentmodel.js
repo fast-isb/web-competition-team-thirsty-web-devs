@@ -14,12 +14,12 @@ const studentSchema = mongoose.Schema({
         min:9,
     },
     email:{
-        type:email,
+        type:String,
         required:true,
         unique:true,
     },
     password:{
-        type:password,
+        type:String,
         required:true,
         min:8,
     },

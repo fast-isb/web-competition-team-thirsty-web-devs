@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose');
 const { orgRouter } = require('./Routes/OrganizationRoutes');
+const { studentRouter } = require('./Routes/StudentRouter');
 require("dotenv").config();
 
 
@@ -11,6 +12,7 @@ var cors = require('cors');
 app.use(cors());
 
 app.use('/org',orgRouter);
+app.use('/student',studentRouter);
 
 var port = process.env.PORT;
 var uri = process.env.ATLAS_URI;
