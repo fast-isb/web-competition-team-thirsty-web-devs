@@ -1,6 +1,6 @@
 
 import './App.css';
-import {BrowserRouter,Routes,Route} from "react-router-dom";
+import {BrowserRouter,Routes,Route, NavLink} from "react-router-dom";
 import RegistrationForm from './components/Register';
 import StudentHome from './components/studentHome';
 import StudentProfile from './components/studentprofilemng';
@@ -10,6 +10,7 @@ import AddJobScholarship from './components/addjob';
 function App() {
   return (
     <div className="App">
+      {/* <NavLink as={Link} to="/coverpage"><CoverPage className="html"></CoverPage></NavLink> */}
       <BrowserRouter>
         <Routes>
           <Route exact path='/' element={<RegistrationForm/>}></Route>
