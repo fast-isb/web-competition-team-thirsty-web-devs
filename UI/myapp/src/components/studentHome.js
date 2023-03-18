@@ -6,12 +6,8 @@ import axios from 'axios';
 function StudentHome() {
 
   const [jobs, setJobs] = useState([]);
-  const [location, setLocation] = useState('');
   const [title, setTitle] = useState('');
 
-  const handlelocationSearch = (event) => {
-    setLocation(event.target.value);
-  };
 
   const handletitleSearch = (event) => {
     setTitle(event.target.value);
@@ -27,7 +23,6 @@ function StudentHome() {
 
   
   const handleSearch=()=>{
-    setLocation(location)
     setTitle(title)
   }
   
@@ -37,11 +32,6 @@ function StudentHome() {
     filteredJobs = jobs.filter((job) =>
     job.title.toLowerCase().includes(title.toLowerCase())
     );
-  }
-  if(location!=''){
-      filteredJobs = jobs.filter((job) =>
-      job.location.toLowerCase().includes(location.toLowerCase())
-      );
   }
 
   
@@ -54,8 +44,6 @@ function StudentHome() {
         <h1>Job Opportunities</h1>
         <input type="text" placeholder="Search by job title" value={title} onChange={handletitleSearch} />
         <button onClick={(e)=>{handleSearch()}}>Search</button>
-            <input type="text" placeholder="Search by location" value={location} onChange={handlelocationSearch} />
-            <button onClick={(e)=>handleSearch()}>Search</button>
         <ul>
                 {filteredJobs==null?
                     jobs.map((job) => (

@@ -1,19 +1,12 @@
 import OrganizatonNavbar from './OrganizationNav';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from "react-router-dom";
 
 export default function OrgHome(){
 
     const [jobs, setJobs] = useState([]);
-  const [location, setLocation] = useState('');
   const [title, setTitle] = useState('');
 
-  const handlelocationSearch = (event) => {
-    setLocation(event.target.value);
-    
-  };
-  const navigate = useNavigate()
 
   const handletitleSearch = (event) => {
     setTitle(event.target.value);
@@ -40,15 +33,8 @@ export default function OrgHome(){
         job.title.toLowerCase().includes(title.toLowerCase())
         );
     }
-    if(location!=''){
-        filteredJobs = jobs.filter((job) =>
-        job.location.toLowerCase().includes(location.toLowerCase())
-        );
-    }
-
  
   const handleSearch=(e)=>{
-    setLocation(location)
     setTitle(title)
   }
 
@@ -58,8 +44,6 @@ export default function OrgHome(){
             <OrganizatonNavbar></OrganizatonNavbar>
             <h1>Job Opportunities</h1>
             <input type="text" placeholder="Search by job title" value={title} onChange={handletitleSearch} />
-            <button onClick={(e)=>{handleSearch()}}>Search</button>
-            <input type="text" placeholder="Search by location" value={location} onChange={handlelocationSearch} />
             <button onClick={(e)=>{handleSearch()}}>Search</button>
             <ul>
                 {filteredJobs==null?
