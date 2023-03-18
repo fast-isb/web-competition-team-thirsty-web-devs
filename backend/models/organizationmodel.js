@@ -1,4 +1,4 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 
 const organizationSchema = mongoose.Schema({
     name:{
@@ -7,10 +7,9 @@ const organizationSchema = mongoose.Schema({
     },
     location:{
         type:String,
-        required:true,
     },
     email:{
-        type:email,
+        type:String,
         required:true,
         unique:true,
     },
@@ -26,7 +25,7 @@ const organizationSchema = mongoose.Schema({
         default:"research organization",
     },
     opportunitiesposted:{
-        type:[{}],
+        type:[Object],
     },
     messages:{
         type:[Object],
