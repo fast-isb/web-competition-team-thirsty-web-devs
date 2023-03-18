@@ -6,6 +6,7 @@ const orgRouter = express.Router();
 
 orgRouter.post('/addorg',async (req,res) => {
 
+
     let {name,email,password,role} = req.body;
       
     var new_user = new orgmodel({
@@ -37,7 +38,7 @@ orgRouter.post('/update',async (req,res) => {
 })
 
 orgRouter.post('/addOpportunity',async (req,res) => {
-    
+
     let id = Math.floor(Math.random() * 10000);
     let {title,desc,location} = req.body;
     let status = "active";
@@ -94,11 +95,7 @@ orgRouter.get('/getusers' , async (req,res) => {
 })
 
 orgRouter.post('/getSpecificUsers' , async (req,res) => {
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> 0d9c57c37355685dac2527d0d4e81289de500706
     orgmodel.findOne({email: req.body.email}, (err,docs)=>{
         
         if(err){
@@ -125,6 +122,21 @@ orgRouter.post('/addNotification',async (req,res) => {
 
     res.send("notification added");
 })
+
+orgRouter.post('/alljobs',async (req,res)=> {
+    console.log(req.body)
+    orgmodel.findOne({email: req.body.email}, (err,docs)=>{
+        if(err){
+            res.status(400).send(err);
+        }
+        else{
+            res.send(docs.opportunitiesposted);
+        }
+    });
+})
+
+
+
 
 orgRouter.post('/approveApplication',async (req,res) => {
     applicationmodel.findOneAndUpdate({email: req.body.email},{status:"approved"});

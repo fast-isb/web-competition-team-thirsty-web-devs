@@ -4,9 +4,6 @@ const applicationmodel = require('../models/applicationmodel')
 const interviewmodel = require('../models/interviews.js')
 const studentRouter = express.Router();
 
-// studentRouter.post('/authStudent',async(req,res) => {
-
-// })
 
 studentRouter.post('/addStudent',async (req,res) => {
 
@@ -31,30 +28,16 @@ studentRouter.post('/addStudent',async (req,res) => {
     })
 })
 
-studentRouter.post('/updateName',async (req,res) => {
+studentRouter.post('/update',async (req,res) => {
+    
     const filter = { email: req.body.email };
-    const update = { name: req.body.name };
+    const update = req.body ;
 
     await studentmodel.findOneAndUpdate(filter, update)
 
     res.send("update request completed")
 })
 
-studentRouter.post('/updatePassword',async (req,res) => {
-    const filter = { email: req.body.email };
-    const update = { password: req.body.password };
-
-    await studentmodel.findOneAndUpdate(filter, update)
-    res.send("update request completed")
-})
-
-studentRouter.post('/updateAddress',async (req,res) => {
-    const filter = { email: req.body.email };
-    const update = { address: req.body.address };
-
-    await studentmodel.findOneAndUpdate(filter, update)
-    res.send("update request completed")
-})
 
 studentRouter.post('/addEducation',async (req,res) => {
     

@@ -28,6 +28,7 @@ export default function StudentProfile() {
         setPreferences(student.preferences);
         setExperience(student.experience);
         setWishlist(student.wishlist);
+        
       })
       .catch(err => {
         console.error(err);
@@ -38,7 +39,7 @@ export default function StudentProfile() {
     event.preventDefault();
 
     // Send updated student data to the backend API
-    axios.put('http://localhost:3001/student/getSpecificUsers', {
+    axios.post('http://localhost:3001/student/update', {
       name,
       address,
       contact,
@@ -62,7 +63,6 @@ export default function StudentProfile() {
     <StudentNavbar></StudentNavbar>
       
     <div className='form'>
-      
       
       <h1>Profile</h1>
       <form onSubmit={handleSubmit}>
