@@ -28,7 +28,7 @@ const studentSchema = mongoose.Schema({
         default:"student",
     },
     education:{
-        type:[{Degree:String, institute:String, startDate:Date,enddate:Date,Grade:String}],
+        type:[{Degree:String, institute:String, startDate:Date, enddate:Date, Grade:String}],
     },
     preferences:{
         type:[String],

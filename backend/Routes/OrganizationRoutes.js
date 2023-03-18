@@ -25,49 +25,24 @@ orgRouter.post('/addorg',async (req,res) => {
     })
 })
 
-orgRouter.post('/updateName',async (req,res) => {
+orgRouter.post('/update',async (req,res) => {
     const filter = { email: req.body.email };
-    const update = { name: req.body.name };
+    const update = { name: req.body.name,password: req.body.password, location: req.body.location ,tagline: req.body.tagline };
 
     await orgmodel.findOneAndUpdate(filter, update)
 
-    res.send("update request completed")
-})
-
-orgRouter.post('/updatePassword',async (req,res) => {
-    const filter = { email: req.body.email };
-    const update = { password: req.body.password };
-
-    await orgmodel.findOneAndUpdate(filter, update)
-    res.send("update request completed")
-})
-
-orgRouter.post('/updateAddress',async (req,res) => {
-    const filter = { email: req.body.email };
-    const update = { address: req.body.address };
-
-    await orgmodel.findOneAndUpdate(filter, update)
-    res.send("update request completed")
-})
-
-orgRouter.post('/updateTagline',async (req,res) => {
-    const filter = { email: req.body.email };
-    const update = { tagline: req.body.tagline };
-
-    await orgmodel.findOneAndUpdate(filter, update)
     res.send("update request completed")
 })
 
 orgRouter.post('/addOpportunity',async (req,res) => {
     
     let id = Math.floor(Math.random() * 10000);
-    let {title,desc} = req.body;
+    let {title,desc,location} = req.body;
     let status = "active";
 
     let op = {id,title,desc,status,views:0};
 
     const filter = {email: req.body.email};
-
 
     await orgmodel.findOneAndUpdate(filter, { $push: { opportunitiesposted: op } })
 })
@@ -112,14 +87,15 @@ orgRouter.get('/getusers' , async (req,res) => {
     });
 })
 
-orgRouter.get('/getSpecificUsers' , async (req,res) => {
-
+orgRouter.post('/getSpecificUsers' , async (req,res) => {
+    
     orgmodel.findOne({email: req.body.email}, (err,docs)=>{
+        
         if(err){
             res.status(400).send(err);
         }
         else{
-            res.status(200).json(docs);
+            res.send(docs);
         }
     });
 })
