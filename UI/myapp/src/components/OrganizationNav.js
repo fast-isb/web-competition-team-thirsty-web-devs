@@ -4,6 +4,7 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import 'bootstrap/dist/css/bootstrap.css';
 import { Link } from 'react-router-dom';
+
 function OrganizatonNavbar() {
   return (
     <>
@@ -13,6 +14,7 @@ function OrganizatonNavbar() {
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/home">Home</Nav.Link>
             <Nav.Link as={Link} to="/jobpost">Job Posting</Nav.Link>
+            <Nav.Link as={Link} to="/org/profile">Profile</Nav.Link>
           </Nav>
         </Container>
       </Navbar>

@@ -193,13 +193,13 @@ export default function StudentProfile() {
                 })}>Delete</button>
               </li>
             ))}
-            <li>
+            {/* <li>
               <button type="button" onClick={() => setWishlist(prevState => {
                 const newState = [...prevState];
                 newState.push('');
                 return newState;
               })}>Add</button>
-            </li>
+            </li> */}
           </ul>
         </label>
         <br />
