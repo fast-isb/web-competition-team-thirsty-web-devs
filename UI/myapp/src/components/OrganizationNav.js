@@ -12,9 +12,9 @@ function OrganizatonNavbar() {
         <Container>
           <Navbar.Brand>ScholarsHub</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/home">Home</Nav.Link>
-            <Nav.Link as={Link} to="/jobpost">Job Posting</Nav.Link>
-            <Nav.Link as={Link} to="/org/profile">Profile</Nav.Link>
+            <Nav.Link as={Link} to="/org">Home</Nav.Link>
+            <Nav.Link as={Link} to="/org/jobpost">Job Posting</Nav.Link>
+            <Nav.Link as={Link} to="/org/profile">Manage Profile</Nav.Link>
           </Nav>
         </Container>
       </Navbar>

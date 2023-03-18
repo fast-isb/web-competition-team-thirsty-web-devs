@@ -1,19 +1,28 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios';
+
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
-    
+    name:"",
     email: "",
     password: "",
     role:"",
   });
 
-  const [role, setRole] = React.useState('');
   
-  const handleSubmit = (event) => {
+  const handleSubmit = async(event) => {
     event.preventDefault();
-    // Send form data to server for user creation and profile storage
     
+console.log(formData)
+
+    if(formData.role=='Organization'){
+     await axios.post('http://localhost:3001/org/addorg',formData)
+    }
+    else{
+      await axios.post('http://localhost:3001/student/addStudent',formData)
+    }
+      
   };
 
   const handleChange = (event) => {
@@ -21,11 +30,6 @@ const RegistrationForm = () => {
     setFormData({ ...formData, [name]: value });
   };
 
- const handleroleChange = (event) => {
-
-  setRole(event.target.value);
-
- };
 
   return (
     <form onSubmit={handleSubmit} className="form">
@@ -38,6 +42,13 @@ const RegistrationForm = () => {
         onChange={handleChange}
       />
       <input required
+        type="text"
+        name="name"
+        placeholder="Name"
+        value={formData.name}
+        onChange={handleChange}
+      />
+      <input required
         type="password"
         name="password"
         placeholder="Password"
@@ -46,8 +57,8 @@ const RegistrationForm = () => {
       />
       <label>
         Role
-          <select value={role} onChange={handleroleChange} required>
-            <option value="Student/Researcher">Student/Researcher</option>
+          <select name="role" onChange={handleChange} required>
+            <option value="Student">Student/Researcher</option>
             <option value="Organization">Organization</option>
           </select>
         </label>

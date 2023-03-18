@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
+import OrganizatonNavbar from './OrganizationNav';
 
 const OrgProfileManagement = () => {
   const [name, setName] = useState('');
@@ -49,6 +50,7 @@ const OrgProfileManagement = () => {
 
   return (
     <div>
+      <OrganizatonNavbar></OrganizatonNavbar><br/>
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId="formName">
         <Form.Label>Name</Form.Label>

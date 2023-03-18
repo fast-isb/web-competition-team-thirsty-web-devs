@@ -11,8 +11,8 @@ function StudentNavbar() {
         <Container>
           <Navbar.Brand>ScholarsHub</Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="//student/home">Home</Nav.Link>
-            <Nav.Link as={Link} to="/student/profile">Profile</Nav.Link>
+            <Nav.Link as={Link} to="/student">Home</Nav.Link>
+            <Nav.Link as={Link} to="/student/profile">Manage Profile</Nav.Link>
           </Nav>
         </Container>
       </Navbar>
