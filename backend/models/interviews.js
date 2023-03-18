@@ -25,7 +25,9 @@ const interviewSchema = mongoose.Schema({
     description:{
         type:String,
     },
-
+    scheduledTime:{
+        type:Date,
+    }
 },
 
 {timestamps:true}

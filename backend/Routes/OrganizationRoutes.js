@@ -70,6 +70,7 @@ orgRouter.post('/addOpportunity',async (req,res) => {
 
 
     await orgmodel.findOneAndUpdate(filter, { $push: { opportunitiesposted: op } })
+    res.send("Job added")
 })
 
 
@@ -86,6 +87,7 @@ orgRouter.post('/removeOpportunity',async (req,res) => {
         }
     )
 
+    res.send("Job status updated")
     //await orgmodel.findOneAndUpdate(filter, { $push: { opportunitiesposted: op } })
 })
 
@@ -98,6 +100,8 @@ orgRouter.post('/addMessage',async (req,res) => {
     let obj = {to,message};
 
     await orgmodel.findOneAndUpdate(filter, { $push: { messages: obj } });
+
+    res.send("message added")
 })
 
 orgRouter.get('/getusers' , async (req,res) => {
@@ -112,7 +116,7 @@ orgRouter.get('/getusers' , async (req,res) => {
     });
 })
 
-orgRouter.get('/getSpecificUsers' , async (req,res) => {
+orgRouter.post('/getSpecificUsers' , async (req,res) => {
 
     orgmodel.findOne({email: req.body.email}, (err,docs)=>{
         if(err){
@@ -126,7 +130,7 @@ orgRouter.get('/getSpecificUsers' , async (req,res) => {
 
 orgRouter.post('/addNotification',async (req,res) => {
     
-    let id = ()=>nanoid();
+    let id = Math.floor(Math.random() * 10000);
     let {title,desc} = req.body;
     let status = "active";
 
@@ -136,6 +140,8 @@ orgRouter.post('/addNotification',async (req,res) => {
 
 
     await orgmodel.findOneAndUpdate(filter, { $push: { notifications: op } })
+
+    res.send("notification added");
 })
 
 
