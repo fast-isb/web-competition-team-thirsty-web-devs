@@ -1,16 +1,16 @@
 const mongoose = require('mongoose')
 
 const applicationSchema = mongoose.Schema({
-    sid:{
+    email:{
         type:String,
         required:true,
     },
-    oid:{
+    oemail:{
         type:String,
         required:true,
     },
     opid:{
-        type:email,
+        type:Number,
         required:true,
         unique:true,
     },

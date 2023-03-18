@@ -1,7 +1,12 @@
 const express = require('express');
 const studentmodel = require('../models/studentmodel.js')
+const applicationmodel = require('../models/applicationmodel')
+const interviewmodel = require('../models/interviews.js')
 const studentRouter = express.Router();
 
+// studentRouter.post('/authStudent',async(req,res) => {
+
+// })
 
 studentRouter.post('/addStudent',async (req,res) => {
 
@@ -65,23 +70,53 @@ studentRouter.post('/addEducation',async (req,res) => {
     res.send("Job added")
 })
 
+studentRouter.post('/addExperience',async (req,res) => {
+    
+    let id = Math.floor(Math.random() * 10000);
+    let {title,organization,startDate,enddate,Grade} = req.body;
 
-// studentRouter.post('/removeOpportunity',async (req,res) => {
-//     const filter = {email: req.body.email,"opportunitiesposted.id":req.body.id};
+    let op = {id,title,organization,startDate,enddate,Grade};
+
+    const filter = {email: req.body.email};
 
 
-//     await orgmodel.updateOne(
-//         filter,
-//         {
-//             $set: {
-//                 "opportunitiesposted.$.status": "inactive",
-//              }
-//         }
-//     )
+    await studentmodel.findOneAndUpdate(filter, { $push: { exprerience: op } })
+    res.send("Job added")
+})
 
-//     res.send("Job status updated")
-//     //await orgmodel.findOneAndUpdate(filter, { $push: { opportunitiesposted: op } })
-// })
+studentRouter.post('/getSpecificExperience',async (req,res)=> {
+    studentmodel.findOne({email: req.body.email}, (err,docs)=>{
+        if(err){
+            res.status(400).send(err);
+        }
+        else{
+            res.status(200).json(docs.exprerience);
+        }
+    });
+})
+
+studentRouter.post('/getSpecificEducation',async (req,res)=> {
+    studentmodel.findOne({email: req.body.email}, (err,docs)=>{
+        if(err){
+            res.status(400).send(err);
+        }
+        else{
+            res.status(200).json(docs.education);
+        }
+    });
+})
+
+
+studentRouter.post('/getNotifications',async (req,res)=> {
+    studentmodel.findOne({email: req.body.email}, (err,docs)=>{
+        if(err){
+            res.status(400).send(err);
+        }
+        else{
+            res.status(200).json(docs.notifications);
+        }
+    });
+})
 
 studentRouter.post('/addMessage',async (req,res) => {
     
@@ -136,6 +171,102 @@ studentRouter.post('/addNotification',async (req,res) => {
     res.send("notification added");
 })
 
+studentRouter.post('/removeNotification',async (req,res) => {
+    const filter = {email: req.body.email,"notifications.id":req.body.id};
+
+
+    await studentmodel.updateOne(
+        filter,
+        {
+            $set: {
+                "notifications.$.status": "inactive",
+             }
+        }
+    )
+
+    res.send("notification status updated")
+    //await orgmodel.findOneAndUpdate(filter, { $push: { opportunitiesposted: op } })
+})
+
+
+studentRouter.post('/addWishlist',async (req,res) => {
+    
+    let id = Math.floor(Math.random() * 10000);
+    let {jobId} = req.body;
+
+    let op = {id,jobId};
+
+    const filter = {email: req.body.email};
+
+
+    await studentmodel.findOneAndUpdate(filter, { $push: { wishlist: op } })
+
+    res.send("wishlist added");
+})
+
+studentRouter.post('/removeWishlist',async (req,res) => {
+
+    const filter = {email: req.body.email};
+
+    await studentmodel.findOneAndUpdate(filter, { $pullAll: { wishlist: id } })
+
+    res.send("wishlist removed");
+})
+
+studentRouter.post('/applyJob',async (req,res)=> {
+    let {email,oemail,opid,description} = req.body;
+    let status = "active";
+    
+    var new_application = new applicationmodel({
+        email,
+        oemail,
+        opid,
+        status,
+        description
+    })
+      
+    await new_application.save(function(err,result){
+        if (err){
+            console.log(err);
+            res.status(400).json("unable to add application")
+        }
+        else{
+            console.log(result)
+            res.status(200).json("application Added")
+        }
+    })
+})
+
+studentRouter.post('/removeApplication',async (req,res)=> {
+    applicationmodel.findOneAndUpdate({email: req.body.email},{status:"inactive"});
+})
+
+studentRouter.post('/removeInterviews',async (req,res)=> {
+    interviewmodel.findOneAndUpdate({email: req.body.email},{status:"inactive"});
+})
+
+
+studentRouter.post('/getSpecificInterview',async (req,res)=> {
+    interviewmodel.find({email: req.body.email}, (err,docs)=>{
+        if(err){
+            res.status(400).send(err);
+        }
+        else{
+            res.status(200).json(docs);
+        }
+    });
+})
+
+studentRouter.post('/getInterviews',async (req,res)=> {
+    studentmodel.find({}, (err,docs)=>{
+        if(err){
+            res.status(400).send(err);
+        }
+        else{
+            res.status(200).json(docs);
+        }
+    });
+})
 
 
 module.exports = {

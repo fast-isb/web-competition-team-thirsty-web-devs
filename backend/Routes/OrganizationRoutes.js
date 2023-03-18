@@ -1,5 +1,7 @@
 const express = require('express');
 const orgmodel = require('../models/organizationmodel.js')
+const applicationmodel = require('../models/applicationmodel.js')
+const studentmodel = require('../models/studentmodel.js')
 const orgRouter = express.Router();
 
 orgRouter.post('/addorg',async (req,res) => {
@@ -87,7 +89,7 @@ orgRouter.post('/removeOpportunity',async (req,res) => {
         }
     )
 
-    res.send("Job status updated")
+    res.send("notification status updated")
     //await orgmodel.findOneAndUpdate(filter, { $push: { opportunitiesposted: op } })
 })
 
@@ -144,6 +146,64 @@ orgRouter.post('/addNotification',async (req,res) => {
     res.send("notification added");
 })
 
+orgRouter.post('/approveApplication',async (req,res) => {
+    applicationmodel.findOneAndUpdate({email: req.body.email},{status:"approved"});
+})
+
+orgRouter.post('/rejectApplication',async (req,res) => {
+    applicationmodel.findOneAndUpdate({email: req.body.email},{status:"rejected"});
+})
+
+orgRouter.post('/getApproveApplication',async (req,res) => {
+    applicationmodel.find({email: req.body.email , status:"approved"},(err,doc) => {
+        if(err){
+            res.status(400).json("error");
+        }
+        else {
+            res.status(200).json(doc);
+        }
+    });
+})
+
+orgRouter.post('/scheduleInterview',async (req,res)=> {
+    let {email,oemail,opid,description,scheduledTime} = req.body;
+    let status = "active";
+    
+    var new_inter = new interviewmodel({
+        email,
+        oemail,
+        opid,
+        status,
+        description,
+        scheduledTime
+    })
+      
+    await new_inter.save(async function(err,result){
+        if (err){
+            console.log(err);
+            res.status(400).json("unable to schedule interview")
+        }
+        else{
+            console.log(result)
+
+            let id = Math.floor(Math.random() * 10000);
+            let {title,desc} = req.body;
+            let status = "active";
+
+            let op = {id,title,desc,status};
+
+            const filter = {email: req.body.email};
+
+
+            await studentmodel.findOneAndUpdate(filter, { $push: { notifications: op } })
+
+            res.send("notification added");
+
+            res.status(200).json("interview scheduled")
+        }
+    })
+
+})
 
 module.exports = {
     orgRouter
