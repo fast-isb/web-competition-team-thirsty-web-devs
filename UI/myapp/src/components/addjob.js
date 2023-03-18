@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
 import axios from 'axios';
+import OrganizatonNavbar from './OrganizationNav';
 
 const AddJobScholarship = () => {
   const [title, setTitle] = useState('');
@@ -23,6 +24,8 @@ const AddJobScholarship = () => {
   };
 
   return (
+    <div>
+      <OrganizatonNavbar></OrganizatonNavbar>
     <Form onSubmit={handleSubmit}>
       <Form.Group>
         <Form.Label>Title</Form.Label>
@@ -80,6 +83,7 @@ const AddJobScholarship = () => {
         Submit
       </Button>
     </Form>
+    </div>
   );
 };
 

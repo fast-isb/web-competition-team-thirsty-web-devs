@@ -17,48 +17,64 @@ function StudentHome() {
     setTitle(event.target.value);
   };
 
-  let filteredJobs = jobs.filter((job) =>
-    job.title.toLowerCase().includes(title.toLowerCase())
-  );
-  filteredJobs = jobs.filter((job) =>
-    job.location.toLowerCase().includes(location.toLowerCase())
-  );
-
-
   useEffect(() => {
     const fetchJobs = async () => {
-      const response = await axios.get('/api/jobs'); // Replace with your backend API endpoint
+      const response = await axios.post('http://localhost:3001/org/alljobs',{email:'kazimasif2020@gmail.com'})
       setJobs(response.data);
-
-      filteredJobs=jobs
     };
     fetchJobs();
   }, []);
 
   
+  const handleSearch=()=>{
+    setLocation(location)
+    setTitle(title)
+  }
+  
+  var filteredJobs=null;
 
+  if(title!=''){
+    filteredJobs = jobs.filter((job) =>
+    job.title.toLowerCase().includes(title.toLowerCase())
+    );
+  }
+  if(location!=''){
+      filteredJobs = jobs.filter((job) =>
+      job.location.toLowerCase().includes(location.toLowerCase())
+      );
+  }
 
+  
   return (
     <>
       <StudentNavbar></StudentNavbar>
       <br />
       
-    <div>
-      <h1>Job Opportunities</h1>
-      <input type="text" placeholder="Search by job title" value={title} onChange={handletitleSearch} />
-      <input type="text" placeholder="Search by location" value={location} onChange={handlelocationSearch} />
-      <ul>
-        {filteredJobs.map((job) => (
-          <li key={job._id}>
-            <h2>{job.title}</h2>
-            <p>{job.description}</p>
-            <p>{job.location}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
-
-
+      <div>
+        <h1>Job Opportunities</h1>
+        <input type="text" placeholder="Search by job title" value={title} onChange={handletitleSearch} />
+        <button onClick={(e)=>{handleSearch()}}>Search</button>
+            <input type="text" placeholder="Search by location" value={location} onChange={handlelocationSearch} />
+            <button onClick={(e)=>handleSearch()}>Search</button>
+        <ul>
+                {filteredJobs==null?
+                    jobs.map((job) => (
+                        <li key={job._id}>
+                            <h2>{job.title}</h2>
+                            <p>{job.description}</p>
+                            <p>{job.location}</p>
+                        </li>
+                    )) :
+                    filteredJobs.map((job) => (
+                        <li key={job._id}>
+                            <h2>{job.title}</h2>
+                            <p>{job.description}</p>
+                            <p>{job.location}</p>
+                        </li>
+                    ))
+                }
+        </ul>
+      </div>
     </>
   );
 }

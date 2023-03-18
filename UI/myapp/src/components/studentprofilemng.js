@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../style.css';
+import StudentNavbar from "./StudentNav";
 
 export default function StudentProfile() {
   const [name, setName] = useState('');
@@ -15,7 +16,7 @@ export default function StudentProfile() {
 
   useEffect(() => {
     // Fetch student data from the backend API
-    axios.get('/api/students/123')
+    axios.post('http://localhost:3001/student/getSpecificUsers',{email:'yash@gmail.com'})
       .then(res => {
         const student = res.data;
         setName(student.name);
@@ -37,7 +38,7 @@ export default function StudentProfile() {
     event.preventDefault();
 
     // Send updated student data to the backend API
-    axios.put('/api/students/123', {
+    axios.put('http://localhost:3001/student/getSpecificUsers', {
       name,
       address,
       contact,
@@ -57,7 +58,12 @@ export default function StudentProfile() {
   };
 
   return (
+<>
+    <StudentNavbar></StudentNavbar>
+      
     <div className='form'>
+      
+      
       <h1>Profile</h1>
       <form onSubmit={handleSubmit}>
         <label>
@@ -206,6 +212,7 @@ export default function StudentProfile() {
         <button type="submit">Submit</button>
     </form>
     </div>
+    </>
   )
 }
     
