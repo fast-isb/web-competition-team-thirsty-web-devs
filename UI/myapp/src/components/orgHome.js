@@ -1,6 +1,7 @@
 import OrganizatonNavbar from './OrganizationNav';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import '../orghome.css'
 
 export default function OrgHome() {
 

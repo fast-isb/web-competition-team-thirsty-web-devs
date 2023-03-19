@@ -1,0 +1,26 @@
+
+.org-home {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .search-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .job-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .job-item {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
