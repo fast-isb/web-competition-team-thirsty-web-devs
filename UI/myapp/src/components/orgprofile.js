@@ -14,10 +14,10 @@ const OrgProfileManagement = () => {
   useEffect( () => {
     // Fetch student data from the backend API
     
-     axios.post(`http://localhost:3001/org/getSpecificUsers`,{email:'a@gmail.com'})
+     axios.post(`http://localhost:3001/org/getSpecificUsers`,{email:'kazimasif2020@gmail.com'})
       .then(res => {
         const org = res.data;
-        console.log(org)
+        // console.log(org)
         setName(org.name);
         setLocation(org.location);
         setEmail(org.email);
@@ -29,7 +29,13 @@ const OrgProfileManagement = () => {
       });
   }, []);
 
-  axios.post(`http://localhost:3001/org/update`, {
+  
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Make a POST request to update the organization's profile
+
+    axios.post(`http://localhost:3001/org/update`, {
     name,
     location,
     email,
@@ -37,15 +43,13 @@ const OrgProfileManagement = () => {
     tagline,
   })
     .then(res => {
+      setEmail('');setName('');setLocation('');setPassword('');setPassword('');setTagline('')
       console.log(res.data);
     })
     .catch(err => {
       console.error(err);
     });
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Make a POST request to update the organization's profile
   }
 
   return (

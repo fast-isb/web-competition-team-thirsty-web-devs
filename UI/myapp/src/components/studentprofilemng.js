@@ -28,7 +28,7 @@ export default function StudentProfile() {
         setPreferences(student.preferences);
         setExperience(student.experience);
         setWishlist(student.wishlist);
-        
+        console.log(experience)
       })
       .catch(err => {
         console.error(err);
@@ -150,11 +150,11 @@ export default function StudentProfile() {
                   newState[index].title = e.target.value;
                   return newState;
                 })} />
-                <input required type="text" value={exp.company} onChange={e => setExperience(prevState => {
+                {/* <input required type="text" value={exp.company} onChange={e => setExperience(prevState => {
                   const newState = [...prevState];
                   newState[index].company = e.target.value;
                   return newState;
-                })} />
+                })} /> */}
                 <input required type="date" value={exp.startDate} onChange={e => setExperience(prevState => {
                   const newState = [...prevState];
                   newState[index].startDate = e.target.value;
