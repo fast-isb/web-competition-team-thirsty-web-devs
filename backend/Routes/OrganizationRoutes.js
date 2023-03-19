@@ -124,7 +124,7 @@ orgRouter.post('/addNotification',async (req,res) => {
 })
 
 orgRouter.post('/alljobs',async (req,res)=> {
-    console.log(req.body)
+    // console.log(req.body)
     orgmodel.findOne({email: req.body.email}, (err,docs)=>{
         if(err){
             res.status(400).send(err);
