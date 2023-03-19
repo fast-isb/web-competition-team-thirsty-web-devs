@@ -43,7 +43,7 @@ export default function OrgHome() {
       <h1>Job Opportunities</h1>
       <input type="text" placeholder="Search by job title" value={title} onChange={handletitleSearch} />
       <button onClick={(e) => { handleSearch() }}>Search</button>
-      <ul>
+      <ul className='job-list'>
         {filteredJobs == null ?
           jobs.map((job) => (
             <li key={job._id}>

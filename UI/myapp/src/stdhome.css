@@ -1,0 +1,25 @@
+.job-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.job-list li {
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #f5f5f5;
+}
+
+.job-list h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.job-list p {
+    font-size: 16px;
+    margin: 0;
+}
+
+button{
+    margin: 2%;
+}
