@@ -18,11 +18,9 @@ studentRouter.post('/addStudent',async (req,res) => {
       
     await new_user.save(function(err,result){
         if (err){
-            console.log(err);
             res.status(400).json("unable to add org")
         }
         else{
-            console.log(result)
             res.status(200).json("Org Added")
         }
     })
